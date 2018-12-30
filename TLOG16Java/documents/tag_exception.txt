@@ -1,0 +1,4 @@
+Tag exaptions
+
+1. startTime or endTime aren't 2 length
+2. 
