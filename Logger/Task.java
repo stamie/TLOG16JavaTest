@@ -681,9 +681,9 @@ public class Task implements Util {
         } else {
             String oldTaskId = this.getTaskId();
             this.taskId = taskId;
-            if (this.isValidLTTaskId() || this.isValidRedmineTaskId() || this.isValidTaskId()) {
+            if (!this.isValidLTTaskId() && !this.isValidRedmineTaskId() && !this.isValidTaskId()) {
                 this.taskId = oldTaskId;
-                throw new OwnException("Wrong taskId");
+                throw new OwnException("Wrong taskID!");
             }
         }
 
