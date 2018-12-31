@@ -688,7 +688,7 @@ public class TestJunit { //extends TestCase {
         this.integer = -1;
         try {
             this.str = "baj van";
-            String taskId = null;
+            String taskId = "";
             Task task1 = new Task(taskId, "07:30");
             //task1.endTaskWithString("08:45");
             //this.integer = task1.getMinPerTask();
@@ -715,7 +715,7 @@ public class TestJunit { //extends TestCase {
             startTimeArrayI[1] = 30;
             endTimeArrayI[0] = 8;
             endTimeArrayI[1] = 45;
-            String taskId = null;
+            String taskId = "";
             Task task2 = new Task(taskId, startTimeArrayI);
             task2.endTaskWithArray(endTimeArrayI);
             this.integer = task2.getMinPerTask();
@@ -742,7 +742,7 @@ public class TestJunit { //extends TestCase {
             startTimeArrayI[1] = 30;
             endTimeArrayI[0] = 8;
             endTimeArrayI[1] = 45;
-            String taskId = null;
+            String taskId = "";
             Task task3 = new Task(taskId, "ez van", startTimeArrayI);
             task3.endTaskWithArray(endTimeArrayI);
             this.integer = task3.getMinPerTask();
@@ -769,7 +769,7 @@ public class TestJunit { //extends TestCase {
             startTimeArrayI[1] = 30;
             endTimeArrayI[0] = 8;
             endTimeArrayI[1] = 45;
-            String taskId = null;
+            String taskId = "";
             Task task4 = new Task(taskId, startTimeArrayI, endTimeArrayI);
             this.integer = task4.getMinPerTask();
 
@@ -789,7 +789,7 @@ public class TestJunit { //extends TestCase {
         this.str = ":(";
         this.integer = -1;
         try {
-            String taskId = null;
+            String taskId = "";
             Task task5 = new Task(taskId, "ez van", "07:30", "08:45");
             this.integer = task5.getMinPerTask();
             this.str = "itt vok";
@@ -816,7 +816,7 @@ public class TestJunit { //extends TestCase {
             startTimeArrayI[1] = 30;
             endTimeArrayI[0] = 8;
             endTimeArrayI[1] = 45;
-            String taskId = null;
+            String taskId = "";
             Task task6 = new Task(taskId, "ez van", startTimeArrayI, endTimeArrayI);
 
         } catch (OwnException ex) {
@@ -976,5 +976,161 @@ public class TestJunit { //extends TestCase {
     }
 
     /* Seventh point End */
+    
+    
+    
+    
+    
+    /* Eleventh point Start */
+    @Test
+
+    public void taskTest11_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            this.str = "baj van";
+            String taskId = null;
+            Task task1 = new Task(taskId, "07:30");
+            //task1.endTaskWithString("08:45");
+            //this.integer = task1.getMinPerTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest11_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task2 = new Task(taskId, startTimeArrayI);
+            task2.endTaskWithArray(endTimeArrayI);
+            this.integer = task2.getMinPerTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest11_3() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task3 = new Task(taskId, "ez van", startTimeArrayI);
+            task3.endTaskWithArray(endTimeArrayI);
+            this.integer = task3.getMinPerTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest11_4() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task4 = new Task(taskId, startTimeArrayI, endTimeArrayI);
+            this.integer = task4.getMinPerTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest11_5() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            String taskId = null;
+            Task task5 = new Task(taskId, "ez van", "07:30", "08:45");
+            this.integer = task5.getMinPerTask();
+            this.str = "itt vok";
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest11_6() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task(taskId, "ez van", startTimeArrayI, endTimeArrayI);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    /* Eleventh point End */
+    
  /* TASK CLASS TEST END */
 }
