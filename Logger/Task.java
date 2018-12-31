@@ -546,4 +546,118 @@ public class Task implements Util {
 
     }
 
+    public void setStarTime(int hour, int minute) throws OwnException {
+
+        try {
+            this.startTimeArray[0] = hour;
+            this.startTimeArray[1] = minute;
+            this.startTimeString = this.arrayTimeToString(this.startTimeArray);
+            LocalTime.parse(this.startTimeString);
+
+            if (!this.isMultipleQuarterHour()) {
+                long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
+                LocalTime endTime = this.getEndTime();
+                if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
+                    endTime.minusMinutes(mod);
+                    this.endTimeArray[0] = endTime.getHour();
+                    this.endTimeArray[1] = endTime.getMinute();
+
+                    this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+                } else {
+                    endTime.plusMinutes(15 - mod);
+                    this.endTimeArray[0] = endTime.getHour();
+                    this.endTimeArray[1] = endTime.getMinute();
+
+                    this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+                }
+
+            }
+        } catch (DateTimeParseException ex) {
+            throw new OwnException("Wrong startTime!");
+        }
+
+    }
+
+    public void setStarTime(String timeString) throws OwnException {
+
+        try {
+
+            this.startTimeString = timeString;
+            LocalTime time = LocalTime.parse(this.startTimeString);
+            this.startTimeArray[0] = time.getHour();
+            this.startTimeArray[1] = time.getMinute();
+            this.setStarTime(this.startTimeArray[0], this.startTimeArray[1]);
+        } catch (DateTimeParseException ex) {
+            throw new OwnException("Wrong startTime!");
+        }
+
+    }
+
+    public void setEndTime(int hour, int minute) throws OwnException {
+
+        try {
+            this.endTimeArray[0] = hour;
+            this.endTimeArray[1] = minute;
+            this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+            LocalTime.parse(this.endTimeString);
+
+            if (!this.isMultipleQuarterHour()) {
+                long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
+                LocalTime endTime = this.getEndTime();
+                if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
+                    endTime.minusMinutes(mod);
+                    this.endTimeArray[0] = endTime.getHour();
+                    this.endTimeArray[1] = endTime.getMinute();
+
+                    this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+                } else {
+                    endTime.plusMinutes(15 - mod);
+                    this.endTimeArray[0] = endTime.getHour();
+                    this.endTimeArray[1] = endTime.getMinute();
+
+                    this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+                }
+
+            }
+        } catch (DateTimeParseException ex) {
+            throw new OwnException("Wrong endTime!");
+        }
+
+    }
+
+    public void setEndTime(String timeString) throws OwnException {
+        try {
+
+            this.endTimeString = timeString;
+            LocalTime time = LocalTime.parse(this.endTimeString);
+            this.endTimeArray[0] = time.getHour();
+            this.endTimeArray[1] = time.getMinute();
+            this.setStarTime(this.endTimeArray[0], this.endTimeArray[1]);
+        } catch (DateTimeParseException ex) {
+            throw new OwnException("Wrong startTime!");
+        }
+
+    }
+
+    public void setTaskId(String taskId) throws OwnException {
+
+        String oldTaskId = this.getTaskId();
+        this.taskId = taskId;
+        if (!this.isValidLTTaskId() && !this.isValidRedmineTaskId() && !this.isValidTaskId()) {
+            this.taskId = oldTaskId;
+            throw new OwnException("Wrong taskId");
+        }
+
+    }
+
+    public void setComment(String comment) {
+        
+        this.comment = comment;
+
+    }
+
 }
