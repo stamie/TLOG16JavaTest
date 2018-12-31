@@ -675,11 +675,16 @@ public class Task implements Util {
 
     public void setTaskId(String taskId) throws OwnException {
 
-        String oldTaskId = this.getTaskId();
-        this.taskId = taskId;
-        if (!this.isValidLTTaskId() && !this.isValidRedmineTaskId() && !this.isValidTaskId()) {
-            this.taskId = oldTaskId;
-            throw new OwnException("Wrong taskId");
+        if (taskId == null || taskId.isEmpty()) {
+            throw new OwnException("Invalid taskID!");
+
+        } else {
+            String oldTaskId = this.getTaskId();
+            this.taskId = taskId;
+            if (this.isValidLTTaskId() || this.isValidRedmineTaskId() || this.isValidTaskId()) {
+                this.taskId = oldTaskId;
+                throw new OwnException("Wrong taskId");
+            }
         }
 
     }
