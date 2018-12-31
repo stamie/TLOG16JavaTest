@@ -549,30 +549,41 @@ public class Task implements Util {
     public void setStarTime(int hour, int minute) throws OwnException {
 
         try {
-            this.startTimeArray[0] = hour;
-            this.startTimeArray[1] = minute;
-            this.startTimeString = this.arrayTimeToString(this.startTimeArray);
-            LocalTime.parse(this.startTimeString);
 
-            if (!this.isMultipleQuarterHour()) {
-                long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
-                LocalTime endTime = this.getEndTime();
-                if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
-                    endTime.minusMinutes(mod);
-                    this.endTimeArray[0] = endTime.getHour();
-                    this.endTimeArray[1] = endTime.getMinute();
+            int[] timeArray = new int[2];
+            timeArray[0] = hour;
+            timeArray[1] = minute;
+            String timeString = this.arrayTimeToString(timeArray);
+            LocalTime startTime = LocalTime.parse(timeString);
+            if (startTime.isAfter(this.getEndTime())) {
+                throw new OwnException("Wrong new startTime");
+            } else {
 
-                    this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+                this.startTimeArray[0] = hour;
+                this.startTimeArray[1] = minute;
+                this.startTimeString = this.arrayTimeToString(this.startTimeArray);
+                LocalTime.parse(this.startTimeString);
 
-                } else {
-                    endTime.plusMinutes(15 - mod);
-                    this.endTimeArray[0] = endTime.getHour();
-                    this.endTimeArray[1] = endTime.getMinute();
+                if (!this.isMultipleQuarterHour()) {
+                    long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
+                    LocalTime endTime = this.getEndTime();
+                    if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
+                        endTime.minusMinutes(mod);
+                        this.endTimeArray[0] = endTime.getHour();
+                        this.endTimeArray[1] = endTime.getMinute();
 
-                    this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+                        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+                    } else {
+                        endTime.plusMinutes(15 - mod);
+                        this.endTimeArray[0] = endTime.getHour();
+                        this.endTimeArray[1] = endTime.getMinute();
+
+                        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+                    }
 
                 }
-
             }
         } catch (DateTimeParseException ex) {
             throw new OwnException("Wrong startTime!");
@@ -584,11 +595,17 @@ public class Task implements Util {
 
         try {
 
-            this.startTimeString = timeString;
-            LocalTime time = LocalTime.parse(this.startTimeString);
-            this.startTimeArray[0] = time.getHour();
-            this.startTimeArray[1] = time.getMinute();
-            this.setStarTime(this.startTimeArray[0], this.startTimeArray[1]);
+            LocalTime startTime = LocalTime.parse(timeString);
+            LocalTime time = this.getEndTime();
+            if (startTime.isAfter(time)) {
+                throw new OwnException("Wrong new startTime!");
+            } else {
+                this.startTimeString = timeString;
+                time = LocalTime.parse(this.startTimeString);
+                this.startTimeArray[0] = time.getHour();
+                this.startTimeArray[1] = time.getMinute();
+                this.setStarTime(this.startTimeArray[0], this.startTimeArray[1]);
+            }
         } catch (DateTimeParseException ex) {
             throw new OwnException("Wrong startTime!");
         }
@@ -598,14 +615,14 @@ public class Task implements Util {
     public void setEndTime(int hour, int minute) throws OwnException {
 
         try {
-            LocalTime.parse(this.endTimeString);
+
             int[] timeArray = new int[2];
             timeArray[0] = hour;
             timeArray[1] = minute;
             String timeString = this.arrayTimeToString(timeArray);
             LocalTime endTime = LocalTime.parse(timeString);
             if (endTime.isBefore(this.getStartTime())) {
-                throw new OwnException("Wrong endTime");
+                throw new OwnException("Wrong new endTime");
             } else {
                 this.endTimeArray = timeArray;
                 this.endTimeString = timeString;
