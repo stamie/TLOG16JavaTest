@@ -546,7 +546,7 @@ public class Task implements Util {
 
     }
 
-    public void setStarTime(int hour, int minute) throws OwnException {
+    public void setStartTime(int hour, int minute) throws OwnException {
 
         try {
 
@@ -556,7 +556,7 @@ public class Task implements Util {
             String timeString = this.arrayTimeToString(timeArray);
             LocalTime startTime = LocalTime.parse(timeString);
             if (startTime.isAfter(this.getEndTime())) {
-                throw new OwnException("Wrong new startTime");
+                throw new OwnException("Wrong new startTime!");
             } else {
 
                 this.startTimeArray[0] = hour;
@@ -591,7 +591,7 @@ public class Task implements Util {
 
     }
 
-    public void setStarTime(String timeString) throws OwnException {
+    public void setStartTime(String timeString) throws OwnException {
 
         try {
 
@@ -604,7 +604,7 @@ public class Task implements Util {
                 time = LocalTime.parse(this.startTimeString);
                 this.startTimeArray[0] = time.getHour();
                 this.startTimeArray[1] = time.getMinute();
-                this.setStarTime(this.startTimeArray[0], this.startTimeArray[1]);
+                this.setStartTime(this.startTimeArray[0], this.startTimeArray[1]);
             }
         } catch (DateTimeParseException ex) {
             throw new OwnException("Wrong startTime!");
@@ -665,10 +665,10 @@ public class Task implements Util {
 
                 this.endTimeArray[0] = time.getHour();
                 this.endTimeArray[1] = time.getMinute();
-                this.setStarTime(this.endTimeArray[0], this.endTimeArray[1]);
+                this.setEndTime(this.endTimeArray[0], this.endTimeArray[1]);
             }
         } catch (DateTimeParseException ex) {
-            throw new OwnException("Wrong startTime!");
+            throw new OwnException("Wrong endTime!");
         }
 
     }
