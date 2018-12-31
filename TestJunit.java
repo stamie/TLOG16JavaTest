@@ -976,12 +976,13 @@ public class TestJunit { //extends TestCase {
     }
 
     /* Seventh point End */
-    
-    
-    
-    
-    
-    /* Eleventh point Start */
+ /* Eighth point Begin */
+ /* Eighth point End */
+ /* Nineth point Begin */
+ /* Nineth point End */
+ /* Tenth point Begin */
+ /* Tenth point End */
+ /* Eleventh point Start */
     @Test
 
     public void taskTest11_1() throws OwnException {
@@ -1131,6 +1132,162 @@ public class TestJunit { //extends TestCase {
     }
 
     /* Eleventh point End */
-    
+    /**
+     * ***********************************************
+     *
+     * 12.) Create a task! Set the task id to be invalid! ->
+     *
+     * ->You should get an InvalidTaskIdException
+     *
+     *
+     ************************************************
+     */
+    /* Twelfth point Begin */
+    @Test
+
+    public void taskTest12_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            task6.setTaskId("jbbwefh379675");
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Wrong taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest12_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            task6.setTaskId("");
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    @Test
+
+    public void taskTest12_3() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            task6.setTaskId(taskId);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Invalid taskID!", this.str);
+
+    }
+
+    /* Twelfth point End */
+    /**
+     * *
+     * 13.) Create a task! Set the start time to be later than the end time! ->
+     * You should get a NotExpectedTimeOrderException
+     */
+    /* Thirteenth point Begin */
+    @Test
+
+    public void taskTest13_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            task6.setStartTime(9,0);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Wrong new startTime!", this.str);
+
+    }
+    @Test
+
+    public void taskTest13_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            task6.setStartTime("09:00");
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("Wrong new startTime!", this.str);
+
+    }
+ /* Thirteenth point End */
+ /* Fourteenth point Begin */
+ /* Fourteenth point End */
+ /* Fiveteenth point Begin */
+ /* Fiveteenth point End */
+ /* Sixteenth point Begin */
+ /* Sixteenth point End */
+ /* Seventeenth point Begin */
+ /* Seventeenth point End */
+ /* Eighteenth point Begin */
+ /* Eighteenth point End */
  /* TASK CLASS TEST END */
 }
