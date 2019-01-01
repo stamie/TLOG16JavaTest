@@ -1056,8 +1056,86 @@ public class TestJunit { //extends TestCase {
 
     }
 
- /* Eighth point End */
- /* Nineth point Begin */
+    /* Eighth point End */
+    /**
+     * 9.) Create a task! Set the start time so the duration will not be
+     * multiple of quarter hours (try all the 3 types of setStartTime)! -> the
+     * end time should be rounded
+     */
+    /* Nineth point Begin */
+    
+    public void taskTest9_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        this.startTime = "";
+        this.endTime = "";
+        this.comment = "";
+        this.taskId = "";
+
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            task.setStartTime(7, 40);
+            
+            this.startTime = task.getStartTimeToString();
+            this.endTime = task.getEndTimeToString();
+            this.comment = task.getComment();
+            this.taskId = task.getTaskId();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("07:40", this.startTime);
+        assertEquals("07:55", this.endTime);
+        assertEquals("LT-1234", this.taskId);
+        assertEquals("ez van", this.comment);
+
+    }
+
+    public void taskTest9_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        this.startTime = "";
+        this.endTime = "";
+        this.comment = "";
+        this.taskId = "";
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", "ez van", "07:40", "07:45");
+            //task.setEndTime(8, 0);
+            task.setStartTime("7:40");
+            this.startTime = task.getStartTimeToString();
+            this.endTime = task.getEndTimeToString();
+            this.comment = task.getComment();
+            this.taskId = task.getTaskId();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("07:40", this.startTime);
+        assertEquals("07:55", this.endTime);
+        assertEquals("LT-1234", this.taskId);
+        assertEquals("ez van", this.comment);
+
+    }
  /* Nineth point End */
  /* Tenth point Begin */
  /* Tenth point End */
@@ -1565,7 +1643,7 @@ public class TestJunit { //extends TestCase {
      * 18.) Create a simple task and check if all the value is set properly!
      */
     /* Eighteenth point Begin */
-    public void taskTest18_2() throws OwnException {
+    public void taskTest18_1() throws OwnException {
 
         this.str = ":(";
         this.integer = -1;
@@ -1601,7 +1679,7 @@ public class TestJunit { //extends TestCase {
 
     }
 
-    public void taskTest18_1() throws OwnException {
+    public void taskTest18_2() throws OwnException {
 
         this.str = ":(";
         this.integer = -1;
