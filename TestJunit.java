@@ -31,6 +31,10 @@ import timelogger.exceptions.OwnException;
 public class TestJunit { //extends TestCase {
 
     protected String str;
+    protected String startTime;
+    protected String endTime;
+    protected String comment;
+    protected String taskId;
     protected long integer;
 
     /* TASK CLASS TEST BEGIN */
@@ -1279,8 +1283,8 @@ public class TestJunit { //extends TestCase {
         assertEquals("Wrong new startTime!", this.str);
 
     }
-    /* Thirteenth point End */
 
+    /* Thirteenth point End */
     /**
      * 14.) Create a task! Set the end time to be earlier than the start time!
      * -> You should get a NotExpectedTimeOrderException
@@ -1311,7 +1315,7 @@ public class TestJunit { //extends TestCase {
         assertEquals("Wrong new endTime!", this.str);
 
     }
-    
+
     @Test
 
     public void taskTest14_2() throws OwnException {
@@ -1337,15 +1341,217 @@ public class TestJunit { //extends TestCase {
         assertEquals("Wrong new endTime!", this.str);
 
     }
- /* Fourteenth point End */
-    
- /* Fiveteenth point Begin */
- /* Fiveteenth point End */
- /* Sixteenth point Begin */
- /* Sixteenth point End */
- /* Seventeenth point Begin */
- /* Seventeenth point End */
- /* Eighteenth point Begin */
- /* Eighteenth point End */
+
+    /* Fourteenth point End */
+    /**
+     * 15.) Create a task only with task id parameter! Call the getMinPerTask
+     * method! -> You should get an EmptyTimeFieldException
+     */
+    /* Fiveteenth point Begin */
+    public void taskTest15_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = null;
+            int[] endTimeArrayI = null;
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 8;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task6 = new Task("LT-1234", startTimeArrayI);
+            this.integer = task6.getMinPerTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("EmptyTimeFieldException", this.str);
+
+    }
+
+    /* Fiveteenth point End */
+    /**
+     * 16.) Create a task, which starts at 7:30 and ends at 7:45! Set the start
+     * time to 7:00. -> The start time should be 7:00
+     *
+     */
+    /* Sixteenth point Begin */
+    public void taskTest16_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = null;
+            int[] endTimeArrayI = null;
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", startTimeArrayI, endTimeArrayI);
+            task.setStartTime("07:00");
+            this.str = task.getStartTimeToString();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("07:00", this.str);
+
+    }
+
+    public void taskTest16_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = null;
+            int[] endTimeArrayI = null;
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", startTimeArrayI, endTimeArrayI);
+            task.setStartTime(7, 0);
+            this.str = task.getStartTimeToString();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("07:00", this.str);
+
+    }
+
+    /* Sixteenth point End */
+    /**
+     * 17.) Create a task, which starts at 7:30 and ends at 7:45! Set the end
+     * time to 8:00. -> The end time should be 8:00
+     */
+    /* Seventeenth point Begin */
+    public void taskTest17_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = null;
+            int[] endTimeArrayI = null;
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", startTimeArrayI, endTimeArrayI);
+            task.setEndTime("08:00");
+            this.str = task.getStartTimeToString();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("08:00", this.str);
+
+    }
+
+    public void taskTest17_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = null;
+            int[] endTimeArrayI = null;
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", startTimeArrayI, endTimeArrayI);
+            task.setEndTime(8, 0);
+            this.str = task.getStartTimeToString();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("08:00", this.str);
+
+    }
+
+    /* Seventeenth point End */
+
+    /**
+     * 18.) Create a simple task and check if all the value is set properly!
+     */
+    /* Eighteenth point Begin */
+    public void taskTest18_2() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", "ez van", startTimeArrayI, endTimeArrayI);
+            //task.setEndTime(8, 0);
+            this.startTime = task.getStartTimeToString();
+            this.endTime = task.getEndTimeToString();
+            this.comment = task.getComment();
+            this.taskId = task.getTaskId();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("07:30", this.startTime);
+        assertEquals("07:45", this.endTime);
+        assertEquals("LT-1234", this.taskId);
+        assertEquals("ez van", this.comment);
+
+    }
+public void taskTest18_1() throws OwnException {
+
+        this.str = ":(";
+        this.integer = -1;
+        try {
+            int[] startTimeArrayI = new int[2];
+            int[] endTimeArrayI = new int[2];
+            startTimeArrayI[0] = 7;
+            startTimeArrayI[1] = 30;
+            endTimeArrayI[0] = 7;
+            endTimeArrayI[1] = 45;
+            String taskId = null;
+            Task task = new Task("LT-1234", "ez van", "07:30", "07:45");
+            //task.setEndTime(8, 0);
+            this.startTime = task.getStartTimeToString();
+            this.endTime = task.getEndTimeToString();
+            this.comment = task.getComment();
+            this.taskId = task.getTaskId();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("07:30", this.startTime);
+        assertEquals("07:45", this.endTime);
+        assertEquals("LT-1234", this.taskId);
+        assertEquals("ez van", this.comment);
+
+    }
+
+    /* Eighteenth point End */
  /* TASK CLASS TEST END */
 }
