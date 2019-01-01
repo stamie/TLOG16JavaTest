@@ -634,11 +634,7 @@ public class Task implements Util {
             if (startTime.isAfter(time)) {
                 throw new OwnException("Wrong new endTime!");
             } else {
-                this.endTimeString = timeString;
-
-                this.endTimeArray[0] = time.getHour();
-                this.endTimeArray[1] = time.getMinute();
-                this.setEndTime(this.endTimeArray[0], this.endTimeArray[1]);
+                this.setEndTime(time.getHour(), time.getMinute());
             }
         } catch (DateTimeParseException ex) {
             throw new OwnException("Wrong endTime!");
