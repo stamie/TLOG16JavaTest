@@ -58,7 +58,7 @@ public class Task implements Util {
                 } else {
 
                     if (!this.isMultipleQuarterHour()) {
-                        throw new OwnException("The duration is not multi quater hour!");
+                        this.roundedEndTime();
                     } else {
 
                         this.startTimeArray = new int[2];
@@ -84,37 +84,40 @@ public class Task implements Util {
             String commentI,
             int[] startTimeArrayI,
             int[] endTimeArrayI) throws OwnException {
-        this.taskId = taskIdI;
-        this.comment = commentI;
-        if (this.taskId == null || this.taskId.isEmpty()) {
-            throw new OwnException("Invalid taskID!");
-        } else if (startTimeArrayI == null) {
-            throw new OwnException("The startTime is Empty!");
-        } else if (endTimeArrayI == null) {
-            throw new OwnException("The endTime is Empty!");
-        } else if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
-            throw new OwnException("Invalid taskID!");
 
-        } else if (commentI == null || commentI.isEmpty()) {
-            this.comment = "";
-        } else if (startTimeArrayI.length != 2 || endTimeArrayI.length != 2) {
+        try {
 
-            throw new OwnException("Input is wrong! StartTime or EndTime not 2 length!");
-        } else if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
-            throw new OwnException("Invalid taskID!");
+            this.taskId = taskIdI;
+            this.comment = commentI;
+            if (this.taskId == null || this.taskId.isEmpty()) {
+                throw new OwnException("Invalid taskID!");
+            } else if (startTimeArrayI == null) {
+                throw new OwnException("The startTime is Empty!");
+            } else if (endTimeArrayI == null) {
+                throw new OwnException("The endTime is Empty!");
+            } else if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
+                throw new OwnException("Invalid taskID!");
 
-        } else {
-            this.startTimeString = this.arrayTimeToString(startTimeArrayI);
-            this.endTimeString = this.arrayTimeToString(endTimeArrayI);
-            LocalTime l = LocalTime.parse(this.startTimeString);
-            LocalTime l2 = LocalTime.parse(this.endTimeString);
-            if (l.isAfter(l2)) {
-                throw new OwnException("The startTime is not Before for endTime!");
-            } else if (!this.isMultipleQuarterHour()) {
-                throw new OwnException("The duration is not multi quater hour!");
+            } else if (startTimeArrayI.length != 2 || endTimeArrayI.length != 2) {
+
+                throw new OwnException("Input is wrong! StartTime or EndTime not 2 length!");
+            } else if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
+                throw new OwnException("Invalid taskID!");
+
             } else {
+                if (commentI == null || commentI.isEmpty()) {
+                    this.comment = "";
+                }
 
-                try {
+                this.startTimeString = this.arrayTimeToString(startTimeArrayI);
+                this.endTimeString = this.arrayTimeToString(endTimeArrayI);
+                LocalTime l = LocalTime.parse(this.startTimeString);
+                LocalTime l2 = LocalTime.parse(this.endTimeString);
+                if (l.isAfter(l2)) {
+                    throw new OwnException("The startTime is not Before for endTime!");
+                } else if (!this.isMultipleQuarterHour()) {
+                    this.roundedEndTime();
+                } else {
 
                     l = LocalTime.parse(this.startTimeString);
                     int hour = l.getHour();
@@ -132,12 +135,12 @@ public class Task implements Util {
                     this.endTimeArray[0] = hour;
                     this.endTimeArray[1] = minute;
 
-                } catch (DateTimeParseException ex) {
-
-                    throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString());
-
                 }
             }
+        } catch (DateTimeParseException ex) {
+
+            throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString());
+
         }
 
     }
@@ -146,23 +149,23 @@ public class Task implements Util {
             String commentI,
             int[] startTimeArrayI) throws OwnException {
 
-        this.taskId = taskIdI;
-        this.comment = commentI;
-        if (this.taskId == null || this.taskId.isEmpty()) {
-            throw new OwnException("Invalid taskID!");
-        } else if (startTimeArrayI == null) {
-            throw new OwnException("The startTime is Empty!");
-        } else if (commentI == null || commentI.isEmpty()) {
-            this.comment = "";
-        } else if (startTimeArrayI.length != 2) {
+        try {
+            this.taskId = taskIdI;
+            this.comment = commentI;
+            if (this.taskId == null || this.taskId.isEmpty()) {
+                throw new OwnException("Invalid taskID!");
+            } else if (startTimeArrayI == null) {
+                throw new OwnException("The startTime is Empty!");
+            } else if (commentI == null || commentI.isEmpty()) {
+                this.comment = "";
+            } else if (startTimeArrayI.length != 2) {
 
-            throw new OwnException("Input is wrong! The startTime length is not 2! It's: " + startTimeArrayI.length);
+                throw new OwnException("Input is wrong! The startTime length is not 2! It's: " + startTimeArrayI.length);
 
-        } else if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
-            throw new OwnException("Invalid taskID!");
+            } else if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
+                throw new OwnException("Invalid taskID!");
 
-        } else {
-            try {
+            } else {
                 this.startTimeString = this.arrayTimeToString(startTimeArrayI);
 
                 LocalTime l = LocalTime.parse(this.startTimeString);
@@ -173,31 +176,32 @@ public class Task implements Util {
                 this.startTimeArray[0] = hour;
                 this.startTimeArray[1] = minute;
 
-            } catch (DateTimeParseException ex) {
-
-                throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString());
-
             }
+        } catch (DateTimeParseException ex) {
+
+            throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString());
+
         }
     }
 
     public Task(String taskIdI,
             int[] startTimeArrayI,
             int[] endTimeArrayI) throws OwnException {
-        this.taskId = taskIdI;
-        if (this.taskId == null || this.taskId.isEmpty()) {
-            throw new OwnException("Invalid taskID!");
-        } else if (startTimeArrayI == null) {
-            throw new OwnException("The startTime is Empty!");
-        } else if (endTimeArrayI == null) {
-            throw new OwnException("The endTime is Empty!");
-        } else if (startTimeArrayI.length != 2 || endTimeArrayI.length != 2) {
+        try {
 
-            throw new OwnException("Input is wrong! StartTime or EndTime not 2 length!");
+            this.taskId = taskIdI;
+            if (this.taskId == null || this.taskId.isEmpty()) {
+                throw new OwnException("Invalid taskID!");
+            } else if (startTimeArrayI == null) {
+                throw new OwnException("The startTime is Empty!");
+            } else if (endTimeArrayI == null) {
+                throw new OwnException("The endTime is Empty!");
+            } else if (startTimeArrayI.length != 2 || endTimeArrayI.length != 2) {
 
-        } else {
+                throw new OwnException("Input is wrong! StartTime or EndTime not 2 length!");
 
-            try {
+            } else {
+
                 if (!this.isValidTaskId() && !this.isValidLTTaskId() && !this.isValidRedmineTaskId()) {
                     throw new OwnException("Invalid taskID!");
 
@@ -210,7 +214,7 @@ public class Task implements Util {
                     if (l.isAfter(l2)) {
                         throw new OwnException("The startTime is not Before for endTime!");
                     } else if (!this.isMultipleQuarterHour()) {
-                        throw new OwnException("The duration is not multi quater hour!");
+                        this.roundedEndTime();
                     } else {
 
                         this.comment = this.startTimeString;
@@ -231,12 +235,12 @@ public class Task implements Util {
                         this.endTimeArray[0] = hour;
                         this.endTimeArray[1] = minute;
                     }
+
                 }
-            } catch (DateTimeParseException ex) {
-
-                throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString());
-
             }
+        } catch (DateTimeParseException ex) {
+
+            throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString());
 
         }
     }
@@ -333,30 +337,6 @@ public class Task implements Util {
         return timeString;
     }
 
-    private void TaskNotEndTimeString(String taskIdI,
-            String commentI,
-            String startTimeI) throws OwnException {
-        try {
-            this.taskId = taskIdI;
-            this.startTimeString = startTimeI;
-            this.comment = commentI;
-
-            LocalTime l = LocalTime.parse(this.startTimeString);
-            int hour = l.getHour();
-            int minute = l.getMinute();
-
-            this.startTimeArray = new int[2];
-            this.startTimeArray[0] = hour;
-            this.startTimeArray[1] = minute;
-
-        } catch (DateTimeParseException ex) {
-
-            throw new OwnException(ex.getErrorIndex() + ": " + ex.getParsedString() + " " + ex.getMessage());
-
-        }
-
-    }
-
     private void TaskWithEndTimeStringNotComment(String taskIdI,
             String startTimeI,
             String endTimeI) throws OwnException {
@@ -438,8 +418,14 @@ public class Task implements Util {
     }
 
     public long getMinPerTask() throws OwnException {
-        long i = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes();
-        return i; //Duration.between(this.getStartTime(), this.getEndTime()).toMinutes();
+
+        if (this.endTimeString == null || this.endTimeString.isEmpty()) {
+            throw new OwnException("EmptyTimeFieldException");
+        } else {
+            long i = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes();
+            return i;
+        }
+        //Duration.between(this.getStartTime(), this.getEndTime()).toMinutes();
 
     }
 
@@ -502,13 +488,12 @@ public class Task implements Util {
             } else {
 
                 this.endTimeString = endTimeStringI;
-                if (!this.isMultipleQuarterHour()) {
-                    throw new OwnException("The duration is not multi quater hour!");
-                } else {
+                this.endTimeArray = new int[2];
+                this.endTimeArray[0] = LocalTime.parse(this.endTimeString).getHour();
+                this.endTimeArray[1] = LocalTime.parse(this.endTimeString).getMinute();
 
-                    this.endTimeArray = new int[2];
-                    this.endTimeArray[0] = LocalTime.parse(this.endTimeString).getHour();
-                    this.endTimeArray[1] = LocalTime.parse(this.endTimeString).getMinute();
+                if (!this.isMultipleQuarterHour()) {
+                    this.roundedEndTime();
                 }
             }
         } catch (DateTimeParseException ex) {
@@ -531,12 +516,9 @@ public class Task implements Util {
 
                 } else {
                     this.endTimeString = str;
+                    this.endTimeArray = endTimeArrayI;
                     if (!this.isMultipleQuarterHour()) {
-                        throw new OwnException("The duration is not multi quater hour!");
-                    } else {
-
-                        this.endTimeArray = new int[2];
-                        this.endTimeArray = endTimeArrayI;
+                        this.roundedEndTime();
                     }
                 }
             } catch (DateTimeParseException ex) {
@@ -565,25 +547,9 @@ public class Task implements Util {
                 LocalTime.parse(this.startTimeString);
 
                 if (!this.isMultipleQuarterHour()) {
-                    long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
-                    LocalTime endTime = this.getEndTime();
-                    if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
-                        endTime.minusMinutes(mod);
-                        this.endTimeArray[0] = endTime.getHour();
-                        this.endTimeArray[1] = endTime.getMinute();
-
-                        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
-
-                    } else {
-                        endTime.plusMinutes(15 - mod);
-                        this.endTimeArray[0] = endTime.getHour();
-                        this.endTimeArray[1] = endTime.getMinute();
-
-                        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
-
-                    }
-
+                    this.roundedEndTime();
                 }
+
             }
         } catch (DateTimeParseException ex) {
             throw new OwnException("Wrong startTime!");
@@ -622,34 +588,41 @@ public class Task implements Util {
             String timeString = this.arrayTimeToString(timeArray);
             LocalTime endTime = LocalTime.parse(timeString);
             if (endTime.isBefore(this.getStartTime())) {
-                throw new OwnException("Wrong new endTime");
+                throw new OwnException("Wrong new endTime!");
             } else {
                 this.endTimeArray = timeArray;
                 this.endTimeString = timeString;
 
                 if (!this.isMultipleQuarterHour()) {
-                    long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
-                    endTime = this.getEndTime();
-                    if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
-                        endTime.minusMinutes(mod);
-                        this.endTimeArray[0] = endTime.getHour();
-                        this.endTimeArray[1] = endTime.getMinute();
-
-                        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
-
-                    } else {
-                        endTime.plusMinutes(15 - mod);
-                        this.endTimeArray[0] = endTime.getHour();
-                        this.endTimeArray[1] = endTime.getMinute();
-
-                        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
-
-                    }
+                    this.roundedEndTime();
                 }
 
             }
         } catch (DateTimeParseException ex) {
             throw new OwnException("Wrong endTime!");
+        }
+
+    }
+
+    private void roundedEndTime() throws OwnException {
+
+        long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
+        LocalTime endTime = this.getEndTime();
+
+        if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
+            endTime.minusMinutes(mod);
+            this.endTimeArray[0] = endTime.getHour();
+            this.endTimeArray[1] = endTime.getMinute();
+
+            this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
+        } else {
+            endTime.plusMinutes(15 - mod);
+            this.endTimeArray[0] = endTime.getHour();
+            this.endTimeArray[1] = endTime.getMinute();
+
+            this.endTimeString = this.arrayTimeToString(this.endTimeArray);
+
         }
 
     }
