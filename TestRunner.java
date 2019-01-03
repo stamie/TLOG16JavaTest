@@ -13,6 +13,9 @@ public class TestRunner {
         }
 
         System.out.println(resultTask.wasSuccessful());
+        for (Failure failure : resultWorkDay.getFailures()) {
+            System.out.println(failure.toString());
+        }
         System.out.println(resultWorkDay.wasSuccessful());
     }
 }

@@ -29,24 +29,112 @@ import java.util.Scanner;
 import timelogger.exceptions.OwnException;
 
 public class TestWorkDay { //extends TestCase {
-    
+
     protected String str;
-     /* First point Begin */
+    protected long longer;
+    protected int[] actualDay;
+
+    /**
+     * 1.) Create a Task which starts at 7:30 and ends at 8:45! Create a
+     * WorkDay, which has default value as requiredMinPerDay! Add Task to the
+     * WorkDay! Call getExtraMinutesPerDay! -> The result should be -375.
+     *
+     * @throws OwnException
+     */
+    /* First point Begin */
     @Test //(expected = OwnException.class)
 
-    public void taskTest1_1() throws OwnException {
+    public void taskWorkDay1_1() throws OwnException {
 
-        this.str = ":(";
-/*
+        this.longer = 0;
+
         try {
-            Task task = new Task("LT-1234", "van ez így", "08:45", "07:30");
+            Task task = new Task("LT-1234", "van ez így", "07:30", "08:45");
+            WorkDay workDay = new WorkDay();
+            workDay.addTask(task);
+            this.longer = workDay.getExtraMinPerDay();
+
         } catch (OwnException ex) {
 
             this.str = ex.getMessage();
         }
-*/
-        assertEquals(":(", this.str);
+
+        assertEquals(-375, this.longer);
 
     }
 
+    /* First point End */
+    /**
+     * 2.) Create a WorkDay which has no Task added! Call getExtraMinutesPerDay!
+     * -> The result should be -requiredMinPerDay
+     */
+    /* Second point Begin */
+    @Test
+
+    public void taskWorkDay2_1() throws OwnException {
+        this.longer = 0;
+
+        try {
+            WorkDay workDay = new WorkDay(24);
+            this.longer = workDay.getExtraMinPerDay();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(-24, this.longer);
+
+    }
+
+    /* Second point End */
+    /**
+     * 3.) Create a WorkDay! Try to set a negative value as requiredMinPerDay
+     * with calling the setRequiredMinPerDay method! -> You should get a
+     * NegativeMinutesOfWorkException (you should write this exception, it
+     * doesn't exist)
+     *
+     * @throws OwnException
+     */
+    /* Thired point Begin */
+    @Test
+
+    public void taskWorkDay3_1() throws OwnException {
+        this.longer = 0;
+        this.str = ":(";
+
+        try {
+            WorkDay workDay = new WorkDay(-24);
+            
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("NegativeMinutesOfWorkException", this.str);
+
+    }
+ @Test
+
+    public void taskWorkDay3_2() throws OwnException {
+        this.actualDay= new int[3];
+        this.actualDay[0] = 2019;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+        this.str = ":(";
+
+        try {
+            WorkDay workDay = new WorkDay(this.actualDay, -24);
+            
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("NegativeMinutesOfWorkException", this.str);
+
+    }
+
+    /* Thired point End */
+ /* WORKDAY CLASS TEST END */
 }

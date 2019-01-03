@@ -31,39 +31,46 @@ public class WorkDay {
 
     public WorkDay(int[] actualDayI,
             long requiredMinPerDayI
-    ) {
+    ) throws OwnException {
+        
+        if (requiredMinPerDayI <= 0) {
+            throw new OwnException("NegativeMinutesOfWorkException");
 
-        this.requiredMinPerDay = requiredMinPerDayI;
-        this.sumPerDay = 0;
-        if (actualDayI.length != 3) {
-            System.out.println("Is array problem");
-            return;
+        } else {
+            this.requiredMinPerDay = requiredMinPerDayI;
+            this.sumPerDay = 0;
+            if (actualDayI.length != 3) {
+                throw new OwnException("Is array problem");
+            }
+            this.actualDay = new int[3];
+            this.actualDay = actualDayI;
+            this.tasks = new ArrayList();
         }
-        this.actualDay = new int[3];
-        this.actualDay = actualDayI;
-        this.tasks = new ArrayList();
     }
 
     public WorkDay(long requiredMinPerDayI
-    ) {
+    ) throws OwnException {
+        if (requiredMinPerDayI <= 0) {
+            throw new OwnException("NegativeMinutesOfWorkException");
 
-        this.requiredMinPerDay = requiredMinPerDayI;
-        this.sumPerDay = 0;
-        LocalDate now = LocalDate.now();
-        this.actualDay = new int[3];
-        this.actualDay[0] = now.getYear();
-        this.actualDay[1] = now.getMonthValue();
-        this.actualDay[2] = now.getDayOfMonth();
-        this.tasks = new ArrayList();
+        } else {
+            this.requiredMinPerDay = requiredMinPerDayI;
+            this.sumPerDay = 0;
+            LocalDate now = LocalDate.now();
+            this.actualDay = new int[3];
+            this.actualDay[0] = now.getYear();
+            this.actualDay[1] = now.getMonthValue();
+            this.actualDay[2] = now.getDayOfMonth();
+            this.tasks = new ArrayList();
+        }
     }
 
     public WorkDay(int[] actualDayI
-    ) {
+    ) throws OwnException {
         this.requiredMinPerDay = 450;
         this.sumPerDay = 0;
         if (actualDayI.length != 3) {
-            System.out.println("Is array problem");
-            return;
+            throw new OwnException("Is array problem");
         }
         this.actualDay = new int[3];
         this.actualDay = actualDayI;
@@ -307,9 +314,10 @@ public class WorkDay {
         this.sumPerDay = 0;
 
         for (Task task : this.tasks) {
-            if (!task.getEndTimeToString().isEmpty())
-            this.sumPerDay += Duration.between(task.getStartTime(), task.getEndTime()).toMinutes();
-            
+            if (!task.getEndTimeToString().isEmpty()) {
+                this.sumPerDay += Duration.between(task.getStartTime(), task.getEndTime()).toMinutes();
+            }
+
         }
     }
 }
