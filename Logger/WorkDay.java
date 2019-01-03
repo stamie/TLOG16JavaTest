@@ -32,7 +32,7 @@ public class WorkDay {
     public WorkDay(int[] actualDayI,
             long requiredMinPerDayI
     ) throws OwnException {
-        
+
         if (requiredMinPerDayI <= 0) {
             throw new OwnException("NegativeMinutesOfWorkException");
 
@@ -319,5 +319,17 @@ public class WorkDay {
             }
 
         }
+    }
+
+    public void setRequiredMinPerDay(long requiredMinPerDayI) throws OwnException {
+        if (requiredMinPerDayI <= 0) {
+
+            throw new OwnException("NegativeMinutesOfWorkException");
+
+        } else {
+            this.requiredMinPerDay = requiredMinPerDayI;
+            this.refreshStatistics();
+        }
+
     }
 }

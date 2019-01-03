@@ -104,8 +104,9 @@ public class TestWorkDay { //extends TestCase {
         this.str = ":(";
 
         try {
-            WorkDay workDay = new WorkDay(-24);
-            
+            WorkDay workDay = new WorkDay(24);
+            workDay.setRequiredMinPerDay(-24);
+
         } catch (OwnException ex) {
 
             this.str = ex.getMessage();
@@ -114,18 +115,20 @@ public class TestWorkDay { //extends TestCase {
         assertEquals("NegativeMinutesOfWorkException", this.str);
 
     }
- @Test
+
+    @Test
 
     public void taskWorkDay3_2() throws OwnException {
-        this.actualDay= new int[3];
+        this.actualDay = new int[3];
         this.actualDay[0] = 2019;
         this.actualDay[1] = 1;
         this.actualDay[2] = 3;
         this.str = ":(";
 
         try {
-            WorkDay workDay = new WorkDay(this.actualDay, -24);
-            
+            WorkDay workDay = new WorkDay(this.actualDay, 24);
+            workDay.setRequiredMinPerDay(-24);
+
         } catch (OwnException ex) {
 
             this.str = ex.getMessage();
@@ -136,5 +139,52 @@ public class TestWorkDay { //extends TestCase {
     }
 
     /* Thired point End */
+    /**
+     * 4.) Create a WorkDay with a negative value of requiredMinPerDay! -> You
+     * should get a NegativeMinutesOfWorkException
+     *
+     * @throws OwnException
+     */
+    /* Fourths point Begin */
+    @Test
+
+    public void taskWorkDay4_1() throws OwnException {
+        this.longer = 0;
+        this.str = ":(";
+
+        try {
+            WorkDay workDay = new WorkDay(-24);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("NegativeMinutesOfWorkException", this.str);
+
+    }
+
+    @Test
+
+    public void taskWorkDay4_2() throws OwnException {
+        this.actualDay = new int[3];
+        this.actualDay[0] = 2019;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+        this.str = ":(";
+
+        try {
+            WorkDay workDay = new WorkDay(this.actualDay, -24);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("NegativeMinutesOfWorkException", this.str);
+
+    }
+
+    /* Fourths point End */
  /* WORKDAY CLASS TEST END */
 }
