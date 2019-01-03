@@ -120,6 +120,36 @@ public class WorkDay {
 
     }
 
+    public LocalTime endTimeOfTheLastTask() throws OwnException {
+
+        LocalTime result = null;
+        for (Task task : this.tasks) {
+            if (result == null && task.getEndTime() != null) {
+                result = task.getEndTime();
+            } else if (task.getEndTime() != null && result.isBefore(task.getEndTime())) {
+                result = task.getEndTime();
+            }
+        }
+
+        return result;
+
+    }
+
+    public LocalTime startTimeOfTheFirstTask() {
+
+        LocalTime result = null;
+        for (Task task : this.tasks) {
+            if (result == null && task.getStartTime() != null) {
+                result = task.getStartTime();
+            } else if (task.getStartTime() != null && result.isAfter(task.getStartTime())) {
+                result = task.getStartTime();
+            }
+        }
+
+        return result;
+
+    }
+
     public long getSumPerDay() {
 
         return this.sumPerDay;

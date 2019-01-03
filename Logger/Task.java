@@ -386,13 +386,17 @@ public class Task implements Util {
 
     }
 
-    public LocalTime getStartTime() throws OwnException {
+    public LocalTime getStartTime() {
 
-        return LocalTime.parse(this.startTimeString);
+        try {
+            return LocalTime.parse(this.startTimeString);
+        } catch (NullPointerException ex) {
+            return null;
+        }
 
     }
 
-    public LocalTime getEndTime() throws OwnException {
+    public LocalTime getEndTime() {
         try {
             return LocalTime.parse(this.endTimeString);
         } catch (NullPointerException ex) {

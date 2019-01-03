@@ -33,6 +33,7 @@ public class TestWorkDay { //extends TestCase {
     protected String str;
     protected long longer;
     protected int[] actualDay;
+    protected LocalTime time;
 
     /**
      * 1.) Create a Task which starts at 7:30 and ends at 8:45! Create a
@@ -346,6 +347,7 @@ public class TestWorkDay { //extends TestCase {
         assertEquals(135, this.longer);
 
     }
+
     /* Seventh point End */
     /**
      * 8.) Create a WorkDay! Call the getSumPerDay! -> The result should be 0.
@@ -402,6 +404,68 @@ public class TestWorkDay { //extends TestCase {
         assertEquals(0, this.longer);
 
     }
+
     /* Eighth point End */
-    /* WORKDAY CLASS TEST END */
+    /**
+     * 9.) Create a Task with beginning time 7:30, finishing time 8:45. Create
+     * an other one with beginning time 9:30, finishing time 11:45. Create a
+     * WorkDay and add these tasks to it. Call the endTimeOfTheLastTask() on the
+     * WorkDay -> The result should be LocalTime.of(11:45)
+     *
+     * @throws OwnException
+     */
+    /* Nineth point Begin */
+    @Test
+
+    public void taskWorkDay9_1() throws OwnException {
+        this.longer = 2;
+        this.str = ":(";
+        this.actualDay = new int[3];
+        this.actualDay[0] = 2019;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+        this.time = LocalTime.of(1, 0);
+
+        try {
+            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+            Task task2 = new Task("LT-5234", "ez van", "09:30", "11:45");
+            WorkDay workDay = new WorkDay(this.actualDay);
+            workDay.addTask(task1);
+            workDay.addTask(task2);
+            this.time = workDay.endTimeOfTheLastTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(LocalTime.of(11, 45), this.time);
+
+    }
+
+    @Test
+
+    public void taskWorkDay9_2() throws OwnException {
+        this.actualDay = new int[3];
+        this.str = ":(";
+        this.longer = 2;
+
+        try {
+            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+            Task task2 = new Task("LT-5234", "ez van", "09:30", "11:45");
+            WorkDay workDay = new WorkDay();
+            workDay.addTask(task1);
+            workDay.addTask(task2);
+            this.time = workDay.endTimeOfTheLastTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(LocalTime.of(11, 45), this.time);
+
+    }
+    /* Nineth point End */
+ /* WORKDAY CLASS TEST END */
 }
