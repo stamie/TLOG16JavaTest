@@ -94,8 +94,6 @@ public class WorkDay {
         }
     }
 
-    
-
     public WorkDay() {
         this.requiredMinPerDay = 450;
         this.sumPerDay = 0;
@@ -349,5 +347,20 @@ public class WorkDay {
             this.refreshStatistics();
         }
 
+    }
+
+    public void setActualDay(int[] actualDayI) throws OwnException {
+        if (actualDayI.length != 3) {
+            throw new OwnException("Is array problem");
+        } else {
+            LocalDate date = LocalDate.of(actualDayI[0], actualDayI[1], actualDayI[2]);
+            if (date.isAfter(LocalDate.now())) {
+                throw new OwnException("FutureWorkException");
+
+            } else {
+                this.actualDay = new int[3];
+                this.actualDay = actualDayI;
+            }
+        }
     }
 }
