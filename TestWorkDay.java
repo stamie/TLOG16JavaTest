@@ -186,5 +186,55 @@ public class TestWorkDay { //extends TestCase {
     }
 
     /* Fourths point End */
- /* WORKDAY CLASS TEST END */
+    /**
+     * 5.) Create a WorkDay! Try to set a future date as actualDay with calling
+     * the setActualDay method! -> You should get a FutureWorkException (you
+     * should write this exception, it doesn't exist)
+     *
+     */
+    /* Fiveths point Begin */
+    @Test
+
+    public void taskWorkDay5_1() throws OwnException {
+        this.longer = 0;
+        this.str = ":(";
+        this.actualDay = new int[3];
+        this.actualDay[0] = 2020;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+
+        try {
+            WorkDay workDay = new WorkDay(this.actualDay);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("FutureWorkException", this.str);
+
+    }
+
+    @Test
+
+    public void taskWorkDay5_2() throws OwnException {
+        this.actualDay = new int[3];
+        this.actualDay[0] = 2020;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+        this.str = ":(";
+
+        try {
+            WorkDay workDay = new WorkDay(this.actualDay, 24);
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("FutureWorkException", this.str);
+
+    }
+    /* Fiveths point Begin */
+    /* WORKDAY CLASS TEST END */
 }

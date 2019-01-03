@@ -36,15 +36,21 @@ public class WorkDay {
         if (requiredMinPerDayI <= 0) {
             throw new OwnException("NegativeMinutesOfWorkException");
 
+        } else if (actualDayI.length != 3) {
+            throw new OwnException("Is array problem");
         } else {
-            this.requiredMinPerDay = requiredMinPerDayI;
-            this.sumPerDay = 0;
-            if (actualDayI.length != 3) {
-                throw new OwnException("Is array problem");
+            LocalDate date = LocalDate.of(actualDayI[0], actualDayI[1], actualDayI[2]);
+            if (date.isAfter(LocalDate.now())) {
+                throw new OwnException("FutureWorkException");
+
+            } else {
+                this.requiredMinPerDay = requiredMinPerDayI;
+                this.sumPerDay = 0;
+
+                this.actualDay = new int[3];
+                this.actualDay = actualDayI;
+                this.tasks = new ArrayList();
             }
-            this.actualDay = new int[3];
-            this.actualDay = actualDayI;
-            this.tasks = new ArrayList();
         }
     }
 
@@ -67,16 +73,28 @@ public class WorkDay {
 
     public WorkDay(int[] actualDayI
     ) throws OwnException {
-        this.requiredMinPerDay = 450;
-        this.sumPerDay = 0;
+
         if (actualDayI.length != 3) {
             throw new OwnException("Is array problem");
-        }
-        this.actualDay = new int[3];
-        this.actualDay = actualDayI;
-        this.tasks = new ArrayList();
+        } else {
+            LocalDate date = LocalDate.of(actualDayI[0], actualDayI[1], actualDayI[2]);
+            if (date.isAfter(LocalDate.now())) {
+                throw new OwnException("FutureWorkException");
 
+            } else {
+
+                this.requiredMinPerDay = 450;
+                this.sumPerDay = 0;
+
+                this.actualDay = new int[3];
+                this.actualDay = actualDayI;
+                this.tasks = new ArrayList();
+
+            }
+        }
     }
+
+    
 
     public WorkDay() {
         this.requiredMinPerDay = 450;
