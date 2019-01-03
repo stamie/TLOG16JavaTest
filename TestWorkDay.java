@@ -289,5 +289,62 @@ public class TestWorkDay { //extends TestCase {
 
     }
     /* Sixth point Begin */
- /* WORKDAY CLASS TEST END */
+    /**
+     * 7.) Create a Task which starts at 7:30 and ends at 8:45! Create an other
+     * one which starts at 8:45 and ends at 9:45! Create a WorkDay, and add the
+     * Tasks to it! Call the getSumPerDay! -> The result should be 135.
+     *
+     */
+    /* Seventh point Begin */
+    @Test
+
+    public void taskWorkDay7_1() throws OwnException {
+        this.longer = 0;
+        this.str = ":(";
+        this.actualDay = new int[3];
+        this.actualDay[0] = 2019;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+
+        try {
+            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+            Task task2 = new Task("LT-5234", "ez van", "08:45", "09:45");
+            WorkDay workDay = new WorkDay(this.actualDay);
+            workDay.addTask(task1);
+            workDay.addTask(task2);
+            this.longer = workDay.getSumPerDay();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(135, this.longer);
+
+    }
+
+    @Test
+
+    public void taskWorkDay7_2() throws OwnException {
+        this.actualDay = new int[3];
+        this.str = ":(";
+
+        try {
+            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+            Task task2 = new Task("LT-5234", "ez van", "08:45", "09:45");
+            WorkDay workDay = new WorkDay();
+            workDay.addTask(task1);
+            workDay.addTask(task2);
+            this.longer = workDay.getSumPerDay();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(135, this.longer);
+
+    }
+    /* Seventh point Begin */
+    /* WORKDAY CLASS TEST END */
 }
