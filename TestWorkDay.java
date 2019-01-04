@@ -466,6 +466,98 @@ public class TestWorkDay { //extends TestCase {
         assertEquals(LocalTime.of(11, 45), this.time);
 
     }
+
     /* Nineth point End */
- /* WORKDAY CLASS TEST END */
+    /**
+     * 10.) Create a WorkDay and call the endTimeOfTheLastTask method on it. ->
+     * The result should be null.
+     *
+     */
+    /* Tenth point Begin */
+    public void taskWorkDay10_1() throws OwnException {
+        this.longer = 2;
+        this.str = ":(";
+        this.actualDay = new int[3];
+        this.actualDay[0] = 2019;
+        this.actualDay[1] = 1;
+        this.actualDay[2] = 3;
+        this.time = LocalTime.of(1, 0);
+
+        try {
+//            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+//            Task task2 = new Task("LT-5234", "ez van", "09:30", "11:45");
+            WorkDay workDay = new WorkDay(this.actualDay);
+//            workDay.addTask(task1);
+//            workDay.addTask(task2);
+            this.time = workDay.endTimeOfTheLastTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(null, this.time);
+
+    }
+
+    @Test
+
+    public void taskWorkDay10_2() throws OwnException {
+        this.actualDay = new int[3];
+        this.str = ":(";
+        this.longer = 2;
+
+        try {
+//            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+//            Task task2 = new Task("LT-5234", "ez van", "09:30", "11:45");
+            WorkDay workDay = new WorkDay();
+//            workDay.addTask(task1);
+//            workDay.addTask(task2);
+            this.time = workDay.endTimeOfTheLastTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(null, this.time);
+
+    }
+    /* Tenth point End */
+    /**
+     * 11.) Create a Task with the start time 7:30 and the end time 8:45! Create
+     * an other one with the start time 8:30 and the end time 9:45! Create an
+     * arbitrary WorkDay! Add the Tasks to the WorkDay! -> You should get a
+     * NotSeparatedTimesException (you should write this exception, it doesn't
+     * exist)
+     *
+     */
+    /* Eleventh point Begin */
+    
+    @Test
+
+    public void taskWorkDay11_1() throws OwnException {
+        this.actualDay = new int[3];
+        this.str = ":(";
+        this.longer = 2;
+
+        try {
+            Task task1 = new Task("LT-1234", "ez van", "07:30", "08:45");
+            Task task2 = new Task("LT-5234", "ez van", "08:30", "09:45");
+            WorkDay workDay = new WorkDay();
+            workDay.addTask(task1);
+            workDay.addTask(task2);
+            this.time = workDay.endTimeOfTheLastTask();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals("NotSeparatedTimesException", this.str);
+
+    }
+    /* Eleventh point End */
+    
+    /* WORKDAY CLASS TEST END */
 }

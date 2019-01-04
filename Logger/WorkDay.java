@@ -187,20 +187,20 @@ public class WorkDay {
 
         for (Task t1 : this.tasks) {
             if (t1.getStartTime() == t.getStartTime() || t.getEndTime() == t1.getEndTime()) {
-                return true;
+                return false;
             }
 
             if (Duration.between(t1.getStartTime(), t.getStartTime()).toMinutes() > 0 && Duration.between(t.getStartTime(), t1.getEndTime()).toMinutes() > 0) {
-                return true;
+                return false;
             }
 
             if (Duration.between(t.getEndTime(), t1.getEndTime()).toMinutes() > 0 && Duration.between(t1.getStartTime(), t.getEndTime()).toMinutes() > 0) {
-                return true;
+                return false;
             }
 
         }
 
-        return false;
+        return true;
     }
 
     /*
@@ -210,11 +210,12 @@ public class WorkDay {
      */
     public void addTask(Task t) throws OwnException {
 
-        //     if (t.isMultipleQuarterHour()
-        //           && !this.isSeparatedTime(t)) {
-        this.insertTask(t);
+        if (!this.isSeparatedTime(t)) {
+            throw new OwnException("NotSeparatedTimesException");
+        } else {
+            this.insertTask(t);
 
-        // }
+        }
     }
 
     private void insertTask(Task taskI) throws OwnException {
