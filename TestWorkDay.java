@@ -696,7 +696,6 @@ public class TestWorkDay { //extends TestCase {
      * Check if the date is 2016/09/01 now!
      *
      */
-
     @Test
 
     public void taskWorkDay16_1() throws OwnException {
@@ -719,6 +718,35 @@ public class TestWorkDay { //extends TestCase {
         }
         assertEquals(LocalDate.of(2016, 9, 1), this.date);
 //        assertEquals(450, this.longer);
+
+    }
+
+    /**
+     * 17.) Create an arbitrary workday! Set the required minutes per day to be
+     * 300! Check if it is 300 now!
+     */
+    @Test
+
+    public void taskWorkDay17_1() throws OwnException {
+        this.str = ":(";
+        this.longer = 0;
+
+        try {
+            int[] actualDayI = new int[3];
+            actualDayI[0] = 2016;
+            actualDayI[1] = 9;
+            actualDayI[2] = 1;
+            WorkDay workDay = new WorkDay();
+            workDay.setRequiredMinPerDay(300);
+//            this.date = workDay.getActualDay();
+            this.longer = workDay.getRequiredMinPerDay();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+//        assertEquals(LocalDate.of(2016, 9, 1), this.date);
+        assertEquals(300, this.longer);
 
     }
     /* WORKDAY CLASS TEST END */
