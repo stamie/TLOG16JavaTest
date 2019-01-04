@@ -19,6 +19,7 @@ import Logger.WorkMonth;
 import Logger.TimeLogger;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -688,6 +689,37 @@ public class TestWorkDay { //extends TestCase {
         assertEquals(450, this.longer);
 
     }
+
     /* Fiveteenth point End */
- /* WORKDAY CLASS TEST END */
+    /**
+     * 16.) Create an arbitrary workday! Set the actual day to be 2016/09/01!
+     * Check if the date is 2016/09/01 now!
+     *
+     */
+
+    @Test
+
+    public void taskWorkDay16_1() throws OwnException {
+        this.str = ":(";
+        this.longer = 0;
+
+        try {
+            int[] actualDayI = new int[3];
+            actualDayI[0] = 2016;
+            actualDayI[1] = 9;
+            actualDayI[2] = 1;
+            WorkDay workDay = new WorkDay();
+            workDay.setActualDay(actualDayI);
+            this.date = workDay.getActualDay();
+//        this.longer = workDay.getRequiredMinPerDay();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+        assertEquals(LocalDate.of(2016, 9, 1), this.date);
+//        assertEquals(450, this.longer);
+
+    }
+    /* WORKDAY CLASS TEST END */
 }
