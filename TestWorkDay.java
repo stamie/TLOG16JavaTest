@@ -591,9 +591,17 @@ public class TestWorkDay { //extends TestCase {
 
     }
 
+    /* Twelveth point End */
+    /**
+     * 13.) Create a workday with given date, the required minutes per day
+     * should be the default! Check if it is created properly!
+     *
+     * @throws OwnException
+     */
+    /* Thirteenth point Begin˙*/
     @Test
 
-    public void taskWorkDay12_2() throws OwnException {
+    public void taskWorkDay13_1() throws OwnException {
         this.str = ":(";
         this.longer = 0;
 
@@ -616,9 +624,17 @@ public class TestWorkDay { //extends TestCase {
 
     }
 
+    /* Thirteenth point End˙*/
+    /**
+     * 14.) Create a workday with default date, and the required minutes per day
+     * should be the 300! Check if it is created properly!
+     *
+     * @throws OwnException
+     */
+    /* Fourteenth point Begin */
     @Test
 
-    public void taskWorkDay12_3() throws OwnException {
+    public void taskWorkDay14_1() throws OwnException {
         this.str = ":(";
         this.longer = 0;
 
@@ -627,7 +643,7 @@ public class TestWorkDay { //extends TestCase {
             actualDayI[0] = 2018;
             actualDayI[1] = 12;
             actualDayI[2] = 11;
-            WorkDay workDay = new WorkDay(250);
+            WorkDay workDay = new WorkDay(300);
             this.date = workDay.getActualDay();
             this.longer = workDay.getRequiredMinPerDay();
 
@@ -637,34 +653,41 @@ public class TestWorkDay { //extends TestCase {
         }
 
         assertEquals(LocalDate.now(), this.date);
-        assertEquals(250, this.longer);
+        assertEquals(300, this.longer);
 
     }
 
+    /* Fourteenth point End */
+    /**
+     * 15.) Create a workday with the default values and check if it it created
+     * properly!
+     *
+     * @throws OwnException
+     */
+    /* Fiveteenth point Begin */
     @Test
 
-    public void taskWorkDay12_4() throws OwnException {
+    public void taskWorkDay15_1() throws OwnException {
         this.str = ":(";
         this.longer = 0;
 
 //        try {
-            int[] actualDayI = new int[3];
-            actualDayI[0] = 2018;
-            actualDayI[1] = 12;
-            actualDayI[2] = 11;
-            WorkDay workDay = new WorkDay();
-            this.date = workDay.getActualDay();
-            this.longer = workDay.getRequiredMinPerDay();
+        int[] actualDayI = new int[3];
+        actualDayI[0] = 2018;
+        actualDayI[1] = 12;
+        actualDayI[2] = 11;
+        WorkDay workDay = new WorkDay();
+        this.date = workDay.getActualDay();
+        this.longer = workDay.getRequiredMinPerDay();
 
 //        } catch (OwnException ex) {
 //
 //            this.str = ex.getMessage();
 //        }
-
         assertEquals(LocalDate.now(), this.date);
         assertEquals(450, this.longer);
 
     }
-    /* Twelveth point End */
+    /* Fiveteenth point End */
  /* WORKDAY CLASS TEST END */
 }
