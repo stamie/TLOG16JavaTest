@@ -327,7 +327,6 @@ public class TestWorkMonth { //extends TestCase {
      *
      */
     /* Seventh point Begin */
-
     @Test
 
     public void taskWorkMonth7_1() throws OwnException {
@@ -366,6 +365,7 @@ public class TestWorkMonth { //extends TestCase {
         assertEquals(this.longer2, this.longer);
 
     }
+
     /* Seventh point End */
     /**
      * 8.) Create a Task with start time 7:30 and end time 8:45! Create a
@@ -375,7 +375,46 @@ public class TestWorkMonth { //extends TestCase {
      * getSumPerMonth on the WorkMonth! -> These should be equal.
      */
     /* Eighth point Begin */
- /* Eighth point End */
+
+    @Test
+
+    public void taskWorkMonth8_1() throws OwnException {
+
+        this.longer = 0;
+
+        try {
+            Task task1 = new Task("LT-1234", "van ez így", "07:30", "08:45");
+            Task task2 = new Task("LT-1234", "van ez így", "08:45", "09:45");
+            int[] date1 = new int[3];
+            date1[0] = 2016;
+            date1[1] = 8;
+            date1[2] = 28;
+            WorkDay workDay1 = new WorkDay(date1, 420);
+            workDay1.addTask(task1);
+
+//            int[] date2 = new int[3];
+//            date2[0] = 2016;
+//            date2[1] = 9;
+//            date2[2] = 1;
+//            WorkDay workDay2 = new WorkDay(date2, 420);
+//            workDay2.addTask(task2);
+
+            WorkMonth workMonth = new WorkMonth(2016, 8);
+            workMonth.addWorkDay(workDay1, true);
+//            workMonth.addWorkDay(workDay2);
+
+            this.longer = workMonth.getSumPerMonth();
+            this.longer2 = workDay1.getSumPerDay();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(this.longer2, this.longer);
+
+    }
+    /* Eighth point End */
     /**
      * 9.) Create a Task with start time 7:30 and end time 8:45! Create a
      * WorkDay with 2016.08.28. as actualDay! Add the Task to the WorkDay!
