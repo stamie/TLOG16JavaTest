@@ -71,7 +71,7 @@ public class WorkMonth {
   *  long method should calculate, how many extra minutes did the employee work in the actual month
      */
     public long getExtraMinPerMonth() {
-        
+
         this.refreshStatistics();
         return this.sumPerMonth - this.requiredMinPerMonth;
 
@@ -116,15 +116,14 @@ public class WorkMonth {
  * (it means there will be an overloaded method). You should also check if the WorkDay is in this month, 
  * and if it is existing already or not .
      */
-    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) {
+    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) throws OwnException {
 
         if (!wd.isWeekday() && !isWeekendEnabled) {
+            
+            throw new OwnException("WeekendNotEnabledException");
 
-            return;
-
-        }
-
-        if (this.isNewDate(wd) && this.isSameMonth(wd)) {
+        } else if (this.isNewDate(wd) && this.isSameMonth(wd)) {
+            
             int i = 0;
             if (this.days.isEmpty()) {
 
@@ -142,10 +141,12 @@ public class WorkMonth {
 
         }
 
-        return;
+        System.out.println("baj van2");
+
+//        return;
     }
 
-    public void addWorkDay(WorkDay wd) {
+    public void addWorkDay(WorkDay wd) throws OwnException {
 
         this.addWorkDay(wd, false);
 

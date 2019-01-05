@@ -174,7 +174,7 @@ public class WorkDay {
  *        long method, which calculates the difference between requiredMinPerDay and sumPerDay
      */
     public long getExtraMinPerDay() {
-        
+
         this.refreshStatistics();
         return this.sumPerDay - this.requiredMinPerDay;
 
@@ -278,9 +278,9 @@ public class WorkDay {
 
         LocalDate aDay = this.getActualDay();
 
-        String str = aDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ROOT);
+        String str = aDay.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ROOT).toUpperCase().trim();
 
-        if (str == "Sun" || str == "Sat") {
+        if (str.equalsIgnoreCase("SUN") || str.equalsIgnoreCase("SAT")) {
 
             return false;
 
