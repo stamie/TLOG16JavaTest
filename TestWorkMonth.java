@@ -57,26 +57,24 @@ public class TestWorkMonth { //extends TestCase {
         try {
             Task task1 = new Task("LT-1234", "van ez így", "07:30", "08:45");
             Task task2 = new Task("LT-1234", "van ez így", "08:45", "09:45");
-            int[] date1= new int[3];
+            int[] date1 = new int[3];
             date1[0] = 2016;
             date1[1] = 9;
             date1[2] = 7;
-            WorkDay workDay1 = new WorkDay(date1,  420);
+            WorkDay workDay1 = new WorkDay(date1, 420);
             workDay1.addTask(task1);
-            
-            
-            int[] date2= new int[3];
+
+            int[] date2 = new int[3];
             date2[0] = 2016;
             date2[1] = 9;
             date2[2] = 1;
-            WorkDay workDay2 = new WorkDay(date2,  420);
+            WorkDay workDay2 = new WorkDay(date2, 420);
             workDay2.addTask(task2);
-            
-            WorkMonth workMonth = new WorkMonth(2016,9);
+
+            WorkMonth workMonth = new WorkMonth(2016, 9);
             workMonth.addWorkDay(workDay1);
             workMonth.addWorkDay(workDay2);
-            
-            
+
             this.longer = workMonth.getSumPerMonth();
 
         } catch (OwnException ex) {
@@ -94,7 +92,42 @@ public class TestWorkMonth { //extends TestCase {
      * should be 0.
      */
     /* Second point Begin */
- /* Second point End */
+    @Test
+
+    public void taskWorkMonth2_1() throws OwnException {
+
+        this.longer = 0;
+
+        try {
+            Task task1 = new Task("LT-1234", "van ez így", "07:30", "08:45");
+            Task task2 = new Task("LT-1234", "van ez így", "08:45", "09:45");
+            int[] date1 = new int[3];
+            date1[0] = 2016;
+            date1[1] = 9;
+            date1[2] = 7;
+            WorkDay workDay1 = new WorkDay(date1, 420);
+            workDay1.addTask(task1);
+
+            int[] date2 = new int[3];
+            date2[0] = 2016;
+            date2[1] = 9;
+            date2[2] = 1;
+            WorkDay workDay2 = new WorkDay(date2, 420);
+            workDay2.addTask(task2);
+
+            WorkMonth workMonth = new WorkMonth(2016, 9);
+
+            this.longer = workMonth.getSumPerMonth();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(0, this.longer);
+
+    }
+    /* Second point End */
     /**
      * 3.) Create a Task with start time 7:30 and end time 8:45! Create a
      * WorkDay with 420 as requiredMinPerDay! Add the Task to the WorkDay!
