@@ -358,7 +358,7 @@ public class WorkDay {
 
     }
 
-    public void refreshStatistics() throws OwnException {
+    public void refreshStatistics() { //throws OwnException {
 
         this.sumPerDay = 0;
 
