@@ -749,5 +749,11 @@ public class TestWorkDay { //extends TestCase {
         assertEquals(300, this.longer);
 
     }
+    /**
+     * 18.) Create a Task with only task id as parameter! Create an arbitrary
+     * workday! Add the task to the workday! Call the getSumPerDay method! ->
+     * You should get an EmptyTimeFieldException
+     *
+     */
     /* WORKDAY CLASS TEST END */
 }

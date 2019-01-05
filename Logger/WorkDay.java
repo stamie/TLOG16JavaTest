@@ -152,6 +152,7 @@ public class WorkDay {
 
     public long getSumPerDay() {
 
+        this.refreshStatistics();
         return this.sumPerDay;
 
     }
@@ -173,7 +174,8 @@ public class WorkDay {
  *        long method, which calculates the difference between requiredMinPerDay and sumPerDay
      */
     public long getExtraMinPerDay() {
-
+        
+        this.refreshStatistics();
         return this.sumPerDay - this.requiredMinPerDay;
 
     }
