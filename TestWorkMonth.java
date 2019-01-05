@@ -177,6 +177,7 @@ public class TestWorkMonth { //extends TestCase {
         assertEquals(-705, this.longer);
 
     }
+
     /* Thired point End */
     /**
      * 4.) Create a WorkMonth! Call the getExtraMinPerMonth method! -> The
@@ -185,7 +186,7 @@ public class TestWorkMonth { //extends TestCase {
      * @throws OwnException
      */
     /* Fourth point Begin */
-        @Test
+    @Test
 
     public void taskWorkMonth4_1() throws OwnException {
 
@@ -223,7 +224,7 @@ public class TestWorkMonth { //extends TestCase {
 
     }
 
- /* Fourth point End */
+    /* Fourth point End */
     /**
      * 5.) Create a WorkDay with 420 as requiredMinPerDay and 2016.09.01. as
      * actualDay! Create an other WorkDay with 420 as requiredMinPerDay! Create
@@ -231,6 +232,44 @@ public class TestWorkMonth { //extends TestCase {
      * -> The result should be 840.
      */
     /* Fiveth point Begin */
+    @Test
+
+    public void taskWorkMonth4_2() throws OwnException {
+
+        this.longer = 0;
+
+        try {
+            Task task1 = new Task("LT-1234", "van ez így", "07:30", "08:45");
+            Task task2 = new Task("LT-1234", "van ez így", "08:45", "09:45");
+            int[] date1 = new int[3];
+            date1[0] = 2016;
+            date1[1] = 9;
+            date1[2] = 7;
+            WorkDay workDay1 = new WorkDay(date1, 420);
+            workDay1.addTask(task1);
+
+            int[] date2 = new int[3];
+            date2[0] = 2016;
+            date2[1] = 9;
+            date2[2] = 1;
+            WorkDay workDay2 = new WorkDay(date2, 420);
+            workDay2.addTask(task2);
+
+            WorkMonth workMonth = new WorkMonth(2016, 9);
+            workMonth.addWorkDay(workDay1);
+            workMonth.addWorkDay(workDay2);
+
+            this.longer = workMonth.getRequiredMinPerMonth();
+
+        } catch (OwnException ex) {
+
+            this.str = ex.getMessage();
+        }
+
+        assertEquals(840, this.longer);
+
+    }
+
  /* Fiveth point Begin */
     /**
      * 6.) Create a WorkMonth! Call the getRequiredMinPerMonth! -> The result
