@@ -11,7 +11,6 @@ import java.time.format.DateTimeParseException;
 import Logger.Util;
 import timelogger.exceptions.OwnException;
 
-
 /**
  *
  * @author stampel Task class: taskId :String startTime :LocalTime endTime
@@ -467,20 +466,19 @@ public class Task extends Util {
  * boolean isMultipleQuarterHour():
  *   boolean (check if the time interval's length is multiple of the quarter hour)
      */
-    public boolean isMultipleQuarterHour() {
+    public boolean isMultipleQuarterHour() throws OwnException {
 
-//        if (this.startTimeArray == null || this.endTimeArray == null) {
-//            return true;
-//        }
-//        long minutes = Duration.between(LocalTime.parse(this.startTimeString), LocalTime.parse(this.endTimeString)).toMinutes();
-//
-//        if (minutes % 15 == 0 && minutes > 15) {
-//
-//            return true;
-//
-//        }
-
-        return super.isMultipleQuarterHour(LocalTime.parse(this.startTimeString),LocalTime.parse(this.endTimeString));
+        if (this.startTimeArray == null || this.endTimeArray == null) {
+            return true;
+        }
+        
+        try {
+            return super.isMultipleQuarterHour(LocalTime.of(this.startTimeArray[0], this.startTimeArray[1]),
+                    LocalTime.of(this.endTimeArray[0], this.endTimeArray[1]));
+        } catch (OwnException ex) {
+            //System.out.println(ex.getMessage());
+            return true;
+        }
 
     }
 
@@ -612,24 +610,12 @@ public class Task extends Util {
 
     private void roundedEndTime() throws OwnException {
 
-        long mod = Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() % 15;
-        LocalTime endTime = this.getEndTime();
+        LocalTime endTime = super.roundToMultipleQuarterHour(LocalTime.of(this.startTimeArray[0], this.startTimeArray[1]), LocalTime.of(this.endTimeArray[0], this.endTimeArray[1]));
 
-        if (mod < 15 - mod && Duration.between(this.getStartTime(), this.getEndTime()).toMinutes() - mod > 15) {
-            endTime.minusMinutes(mod);
-            this.endTimeArray[0] = endTime.getHour();
-            this.endTimeArray[1] = endTime.getMinute();
+        this.endTimeArray[0] = endTime.getHour();
+        this.endTimeArray[1] = endTime.getMinute();
 
-            this.endTimeString = this.arrayTimeToString(this.endTimeArray);
-
-        } else {
-            endTime.plusMinutes(15 - mod);
-            this.endTimeArray[0] = endTime.getHour();
-            this.endTimeArray[1] = endTime.getMinute();
-
-            this.endTimeString = this.arrayTimeToString(this.endTimeArray);
-
-        }
+        this.endTimeString = this.arrayTimeToString(this.endTimeArray);
 
     }
 
