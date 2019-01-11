@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import timelogger.exceptions.OwnException;
 
-public class TestJunit { //extends TestCase {
+public class TestTask { //extends TestCase {
 
     protected String str;
     protected String startTime;

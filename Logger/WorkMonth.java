@@ -10,6 +10,7 @@ import java.util.List;
 import Logger.WorkDay;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import timelogger.exceptions.OwnException;
 
 /**
  *
@@ -52,12 +53,15 @@ public class WorkMonth {
 
     public long getSumPerMonth() {
 
+        this.refreshStatistics();
+
         return this.sumPerMonth;
 
     }
 
     public long getRequiredMinPerMonth() {
 
+        this.refreshStatistics();
         return this.requiredMinPerMonth;
 
     }
@@ -68,6 +72,7 @@ public class WorkMonth {
      */
     public long getExtraMinPerMonth() {
 
+        this.refreshStatistics();
         return this.sumPerMonth - this.requiredMinPerMonth;
 
     }
@@ -79,7 +84,7 @@ public class WorkMonth {
     public boolean isNewDate(WorkDay workDayI) {
 
         for (WorkDay day : this.days) {
-            if (day.getActualDay() == workDayI.getActualDay()) {
+            if (day.getActualDay().toString().equals(workDayI.getActualDay().toString())) {
 
                 return false;
 
@@ -111,21 +116,21 @@ public class WorkMonth {
  * (it means there will be an overloaded method). You should also check if the WorkDay is in this month, 
  * and if it is existing already or not .
      */
-    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) {
+    public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) throws OwnException {
 
         if (!wd.isWeekday() && !isWeekendEnabled) {
 
-            return;
+            throw new OwnException("WeekendNotEnabledException");
 
-        }
-
-        if (this.isNewDate(wd) && this.isSameMonth(wd)) {
+        } else if (!this.isNewDate(wd)) {
+            throw new OwnException("NotNewDateException");
+        } else if (!this.isSameMonth(wd)) {
+            throw new OwnException("NotTheSameMonthException");
+        } else {
             int i = 0;
             if (this.days.isEmpty()) {
 
                 this.days.add(wd);
-                this.requiredMinPerMonth += wd.getRequiredMinPerDay();
-                this.sumPerMonth += wd.getSumPerDay();
                 return;
 
             }
@@ -133,18 +138,16 @@ public class WorkMonth {
                 if (workDay.getActualDay().getDayOfYear() > wd.getActualDay().getDayOfYear()) {
 
                     this.days.add(i, wd);
-                    this.requiredMinPerMonth += wd.getRequiredMinPerDay();
-                    this.sumPerMonth += wd.getSumPerDay();
                     return;
                 }
             }
 
         }
 
-        return;
+//        return;
     }
 
-    public void addWorkDay(WorkDay wd) {
+    public void addWorkDay(WorkDay wd) throws OwnException {
 
         this.addWorkDay(wd, false);
 
@@ -176,12 +179,6 @@ public class WorkMonth {
                 i++;
                 if (workDay.getActualDayToString() == workDayI.getActualDayToString()) {
                     this.days.remove(i);
-                    this.requiredMinPerMonth -= this.days.get(i).getRequiredMinPerDay();
-                    this.sumPerMonth -= this.days.get(i).getSumPerDay();
-
-                    this.days.add(i, workDayI);
-                    this.requiredMinPerMonth += workDay.getRequiredMinPerDay();
-                    this.sumPerMonth += workDay.getSumPerDay();
                     return;
                 }
             }
