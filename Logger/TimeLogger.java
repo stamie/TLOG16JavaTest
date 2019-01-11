@@ -67,7 +67,7 @@ public class TimeLogger {
     public boolean isNewMonth(WorkMonth wm) {
 
         for (WorkMonth wm2 : this.months) {
-            if (wm2.getDate() == wm.getDate()) {
+            if (wm2.getDate().toString().equals(wm.getDate().toString())) {
                 return false;
             }
         }
@@ -75,13 +75,15 @@ public class TimeLogger {
 
     }
 
-    /*
- * void addMonth(WorkMonth):
- * void  adds a new month to the months list if it is new
+    /**
+     * void addMonth(WorkMonth): void adds a new month to the months list if it
+     * is new
      */
-    public void addMonth(WorkMonth wm) {
+    public void addMonth(WorkMonth wm) throws OwnException {
 
-        if (this.isNewMonth(wm)) {
+        if (!this.isNewMonth(wm)) {
+            throw new OwnException("NotNewMonthException");
+        } else {
 
             if (this.months.isEmpty()) {
                 this.months.add(wm);
