@@ -84,7 +84,7 @@ public class WorkMonth {
     public boolean isNewDate(WorkDay workDayI) {
 
         for (WorkDay day : this.days) {
-            if (day.getActualDay() == workDayI.getActualDay()) {
+            if (day.getActualDay().toString().equals(workDayI.getActualDay().toString())) {
 
                 return false;
 
@@ -119,11 +119,12 @@ public class WorkMonth {
     public void addWorkDay(WorkDay wd, boolean isWeekendEnabled) throws OwnException {
 
         if (!wd.isWeekday() && !isWeekendEnabled) {
-            
+
             throw new OwnException("WeekendNotEnabledException");
 
-        } else if (this.isNewDate(wd) && this.isSameMonth(wd)) {
-            
+        } else if (!this.isNewDate(wd)) {
+            throw new OwnException("NotNewDateException");
+        } else if (this.isSameMonth(wd)) {
             int i = 0;
             if (this.days.isEmpty()) {
 
@@ -140,8 +141,6 @@ public class WorkMonth {
             }
 
         }
-
-        System.out.println("baj van2");
 
 //        return;
     }
