@@ -124,7 +124,9 @@ public class WorkMonth {
 
         } else if (!this.isNewDate(wd)) {
             throw new OwnException("NotNewDateException");
-        } else if (this.isSameMonth(wd)) {
+        } else if (!this.isSameMonth(wd)) {
+            throw new OwnException("NotTheSameMonthException");
+        } else {
             int i = 0;
             if (this.days.isEmpty()) {
 
