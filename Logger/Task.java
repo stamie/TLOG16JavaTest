@@ -8,14 +8,16 @@ package Logger;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import Logger.Util;
 import timelogger.exceptions.OwnException;
+
 
 /**
  *
  * @author stampel Task class: taskId :String startTime :LocalTime endTime
  * :LocalTime comment :String
  */
-public class Task implements Util {
+public class Task extends Util {
 
     private String taskId;
     private String comment;
@@ -467,18 +469,18 @@ public class Task implements Util {
      */
     public boolean isMultipleQuarterHour() {
 
-        if (this.startTimeArray == null || this.endTimeArray == null) {
-            return true;
-        }
-        long minutes = Duration.between(LocalTime.parse(this.startTimeString), LocalTime.parse(this.endTimeString)).toMinutes();
+//        if (this.startTimeArray == null || this.endTimeArray == null) {
+//            return true;
+//        }
+//        long minutes = Duration.between(LocalTime.parse(this.startTimeString), LocalTime.parse(this.endTimeString)).toMinutes();
+//
+//        if (minutes % 15 == 0 && minutes > 15) {
+//
+//            return true;
+//
+//        }
 
-        if (minutes % 15 == 0 && minutes > 15) {
-
-            return true;
-
-        }
-
-        return false;
+        return super.isMultipleQuarterHour(LocalTime.parse(this.startTimeString),LocalTime.parse(this.endTimeString));
 
     }
 

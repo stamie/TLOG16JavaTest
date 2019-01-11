@@ -8,6 +8,7 @@ package Logger;
 import java.time.*;
 import java.util.List;
 import Logger.Task;
+import Logger.Util;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import timelogger.exceptions.OwnException;
  * requiredMinPerDay :(defulte 7,5 houers)long actualDay :LocalDate sumPerDay
  * :long
  */
-public class WorkDay {
+public class WorkDay extends Util {
 
     private List<Task> tasks;
     private long requiredMinPerDay;
@@ -188,15 +189,7 @@ public class WorkDay {
     public boolean isSeparatedTime(Task t) throws OwnException {
 
         for (Task t1 : this.tasks) {
-            if (t1.getStartTime() == t.getStartTime() || t.getEndTime() == t1.getEndTime()) {
-                return false;
-            }
-
-            if (Duration.between(t1.getStartTime(), t.getStartTime()).toMinutes() > 0 && Duration.between(t.getStartTime(), t1.getEndTime()).toMinutes() > 0) {
-                return false;
-            }
-
-            if (Duration.between(t.getEndTime(), t1.getEndTime()).toMinutes() > 0 && Duration.between(t1.getStartTime(), t.getEndTime()).toMinutes() > 0) {
+            if (!super.isSeparatedTime(t1.getStartTime(), t1.getEndTime(), t.getStartTime(), t.getEndTime())) {
                 return false;
             }
 
