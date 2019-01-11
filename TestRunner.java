@@ -9,6 +9,7 @@ public class TestRunner {
         Result resultTask = JUnitCore.runClasses(TestTask.class);
         Result resultWorkDay = JUnitCore.runClasses(TestWorkDay.class);
         Result resultWorkMonth = JUnitCore.runClasses(TestWorkMonth.class);
+        Result resultTimeLogger = JUnitCore.runClasses(TestTimeLogger.class);
         for (Failure failure : resultTask.getFailures()) {
             System.out.println(failure.toString());
         }
@@ -23,5 +24,10 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
         System.out.println(resultWorkMonth.wasSuccessful());
+        
+        for (Failure failure : resultTimeLogger.getFailures()) {
+            System.out.println(failure.toString());
+        }
+        System.out.println(resultTimeLogger.wasSuccessful());
     }
 }
